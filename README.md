@@ -1,1 +1,1 @@
-# Django is new
+# Django is new baby
