@@ -1,1 +1,1 @@
-# Django is new baby
+# Django Project
