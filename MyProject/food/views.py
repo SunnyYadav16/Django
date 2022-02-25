@@ -9,7 +9,6 @@ def index(request):
     context = {
         "item_list": item_list,
     }
-    # return HttpResponse(item_list)
     return render(request, 'food/index.html', context)
 
 
@@ -18,5 +17,4 @@ def detail_view(request, item_id):
     context = {
         "item": item,
     }
-    # return HttpResponse(f"This is item no: {item}"
     return render(request, 'food/detail.html', context)
