@@ -17,10 +17,19 @@ from django.contrib import admin
 from django.urls import path, include
 from users.views import (
     register,
+    view_profile,
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('food/', include("food.urls")),
     path('register/', register, name='register'),
+    path('profile/', view_profile, name='profile'),
 ]
+
+
+urlpatterns += [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
