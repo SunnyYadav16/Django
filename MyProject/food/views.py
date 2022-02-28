@@ -1,6 +1,11 @@
+from pyexpat import model
+
 from django.shortcuts import render, redirect
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from .models import Items
 from .forms import ItemForm
+from django.views.generic.list import ListView
 
 
 # Create your views here.
@@ -12,12 +17,24 @@ def index(request):
     return render(request, 'food/index.html', context)
 
 
+class IndexClassView(ListView):
+    model = Items
+    template_name = 'food/index.html'
+    context_object_name = "item_list"
+
+
 def detail_view(request, item_id):
     item = Items.objects.get(id=item_id)
     context = {
         "item": item,
     }
     return render(request, 'food/detail.html', context)
+
+
+class DetailClassView(DetailView):
+    model = Items
+    template_name = "food/detail.html"
+    context_object_name = 'item'
 
 
 def create_item(request):
@@ -29,6 +46,17 @@ def create_item(request):
         "form": form,
     }
     return render(request, 'food/item_form.html', context)
+
+
+class CreateItemView(CreateView):
+    model = Items
+    fields = ['item_name', 'item_desc', 'item_price', 'item_image']
+    template = 'food/item_form.html'
+
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+
+        return super().form_valid(form)
 
 
 def update_item(request, item_id):
