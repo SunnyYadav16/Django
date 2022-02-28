@@ -27,6 +27,14 @@
         <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">View Items</a>
         </li>
+        <li class="nav-link nav-item">
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">Logout</a>
+            <a href="{% url 'profile' %}">Profile</a>
+          {% else %}
+            <a href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
